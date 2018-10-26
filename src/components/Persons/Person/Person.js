@@ -7,11 +7,13 @@ import PropTypes from 'prop-types';
 class Person extends Component {
   constructor(props) {
     super(props);
+
+    this.inputElement = React.createRef();
   }
 
   componentDidMount() {
     if(this.props.position === 0) {
-      this.inputElement.focus();
+      this.inputElement.current.focus();
     }
   }
 
@@ -19,7 +21,7 @@ class Person extends Component {
     return (
       <div>
         <p>I'm a {this.props.name} and I'am {this.props.age} years old</p>
-        <input type="text" onChange={this.props.changeName} value={this.props.name} ref={ (input) => { this.inputElement = input }}/>
+        <input type="text" onChange={this.props.changeName} value={this.props.name} ref={this.inputElement}/>
         <button onClick={this.props.deletePerson}>X</button>
       </div>
     )
