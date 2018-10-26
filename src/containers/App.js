@@ -16,7 +16,7 @@ class App extends Component {
         { name: 'Jaime', age: 88 }
       ],
       username: 'krandres27',
-      showPersons: true
+      showPersons: false
     }
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -57,6 +57,8 @@ class App extends Component {
       <div className="App">
         <Cockpit />
         <h2>Course code</h2>
+        <button onClick={ () => this.setState({ showPersons: true })}>show persons</button>  
+        <button onClick={ () => this.setState({ showPersons: false })}>hide persons</button>  
         <Persons personsData={this.state.persons} showPersons={this.state.showPersons} changeNameHandler={this.changeNameHandler} deletePersonsHandler={this.deletePersonsHandler}/>
         <hr />
         <h2>Course Assigments</h2>

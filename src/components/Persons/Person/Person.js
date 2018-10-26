@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 
-// Stateful or presentational component is created with a es6 class
+// Stateful or container component is created with a es6 class
 
 class Person extends Component {
   constructor(props) {
@@ -30,5 +31,14 @@ class Person extends Component {
 //         </div>
 //     )
 // }
+
+// PROPTYPES VALIDATION
+
+Person.propTypes = {
+  name: PropTypes.string,
+  age: PropTypes.number,
+  changeName: PropTypes.func,
+  deletePerson: PropTypes.func
+};
 
 export default Person;

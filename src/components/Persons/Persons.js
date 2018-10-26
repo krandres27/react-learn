@@ -9,7 +9,35 @@ class Persons extends Component {
     super(props);
   }
 
+
+  // UPDATE LIFECYCLE
+  componentWillMount() {
+    console.log('persons will mount');
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps persons.js and recieves nextProps: ', nextProps);
+  }
+  
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldComponentUpdate persons.js', nextProps, nextState);
+    return nextProps.personsData !== this.props.personsData || nextProps.showPersons !== this.props.showPersons;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('componentWillUpdate persons.js and recieves nextProps: ', nextProps, nextState);
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate persons.js and recieves nextProps: ');
+  }
+
+  componentDidMount() {
+    console.log('persons did mount');
+  }
+
   render() {
+    console.log('persons render')
     if (this.props.showPersons) {
       return this.props.personsData.map((person, index) => {
         return (
