@@ -37,8 +37,15 @@ class Person extends Component {
 Person.propTypes = {
   name: PropTypes.string,
   age: PropTypes.number,
-  changeName: PropTypes.func,
-  deletePerson: PropTypes.func
+  changeName: PropTypes.func.isRequired,
+  deletePerson: PropTypes.func.isRequired
 };
+
+// DEFAULT PROPS VALUES
+
+Person.defaultProps = {
+  name: 'Nombre',
+  age: 100
+}
 
 export default Person;
