@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { AuthContext } from '../../../containers/App';
 
 
 // Stateful or container component is created with a es6 class
@@ -20,6 +21,7 @@ class Person extends Component {
   render() {
     return (
       <div>
+        <AuthContext.Consumer>{ (authenticaded) => { return authenticaded ? <p>I'm Autenthicated</p> : null }}</AuthContext.Consumer>
         <p>I'm a {this.props.name} and I'am {this.props.age} years old</p>
         <input type="text" onChange={this.props.changeName} value={this.props.name} ref={this.inputElement}/>
         <button onClick={this.props.deletePerson}>X</button>

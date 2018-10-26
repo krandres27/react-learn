@@ -5,6 +5,8 @@ import Persons from '../components/Persons/Persons';
 import UserInput from '../components/UserInput/UserInput';
 import UserOutput from '../components/UserOutput/UserOutput';
 
+export const AuthContext = React.createContext(false);
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -16,12 +18,14 @@ class App extends Component {
         { name: 'Jaime', age: 88 }
       ],
       username: 'krandres27',
-      showPersons: false
+      showPersons: false,
+      authenticaded: false
     }
 
     this.changeNameHandler = this.changeNameHandler.bind(this);
     this.changeUsernameHandler = this.changeUsernameHandler.bind(this);
     this.deletePersonsHandler = this.deletePersonsHandler.bind(this);
+    this.loginHandler = this.loginHandler.bind(this);
   }
 
   changeNameHandler(e, index) {
@@ -52,14 +56,22 @@ class App extends Component {
     });
   }
 
+  loginHandler() {
+    this.setState({
+      authenticaded: true
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <Cockpit />
+        <Cockpit login={this.loginHandler}/>
         <h2>Course code</h2>
         <button onClick={ () => this.setState({ showPersons: true })}>show persons</button>  
         <button onClick={ () => this.setState({ showPersons: false })}>hide persons</button>  
-        <Persons personsData={this.state.persons} showPersons={this.state.showPersons} changeNameHandler={this.changeNameHandler} deletePersonsHandler={this.deletePersonsHandler}/>
+        <AuthContext.Provider value={this.state.authenticaded}>
+          <Persons personsData={this.state.persons} showPersons={this.state.showPersons} changeNameHandler={this.changeNameHandler} deletePersonsHandler={this.deletePersonsHandler}/>
+        </AuthContext.Provider>
         <hr />
         <h2>Course Assigments</h2>
         <UserInput username={this.state.username} changeUsername={this.changeUsernameHandler}/>
