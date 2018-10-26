@@ -9,11 +9,17 @@ class Person extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    if(this.props.position === 0) {
+      this.inputElement.focus();
+    }
+  }
+
   render() {
     return (
       <div>
         <p>I'm a {this.props.name} and I'am {this.props.age} years old</p>
-        <input type="text" onChange={this.props.changeName} value={this.props.name} />
+        <input type="text" onChange={this.props.changeName} value={this.props.name} ref={ (input) => { this.inputElement = input }}/>
         <button onClick={this.props.deletePerson}>X</button>
       </div>
     )

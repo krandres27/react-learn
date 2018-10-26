@@ -44,6 +44,7 @@ class Persons extends Component {
           <Person
             name={person.name}
             age={person.age}
+            position={index}
             key={index}
             changeName={(event) => this.props.changeNameHandler(event, index)}
             deletePerson={() => this.props.deletePersonsHandler(index)}
