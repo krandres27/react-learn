@@ -3,7 +3,7 @@
     font-weight: bold;
     height: 250px;
     margin: auto;
-    overflow-y: visible;
+    overflow-y: scroll;
     text-align: center;
     width: 100%;
 }
