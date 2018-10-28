@@ -5,6 +5,14 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import axios from 'axios';
 
+//AXIOS DEFAULT CONFIG
+//BASE URL
+axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+//DEFAULTS HEADERS
+axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
+//DEFAULT TO SPECIFIC ACTION / POST IN THIS CASE
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 //AXIOS INTERCEPTORS - TO INTERCEPT ANY REQUEST OR RESPONSE GLOBALLY
 
 // REQUEST INTERCEPTOR
