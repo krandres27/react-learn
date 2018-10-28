@@ -10,15 +10,24 @@ class FullPost extends Component {
         this.state = {
             loadedPost: null
         }
+
+        this.deleteHandler = this.deleteHandler.bind(this);
     }
+
     componentDidUpdate() {
-        if(!this.state.loadedPost && this.props.postId || this.state.loadedPost && this.state.loadedPost.id !== this.props.postId) {
+        if((!this.state.loadedPost && this.props.postId) || (this.state.loadedPost && this.state.loadedPost.id !== this.props.postId)) {
             axios.get(`https://jsonplaceholder.typicode.com/posts/${this.props.postId}`).then((res) => {
                 this.setState({
                     loadedPost: res.data
                 });
             });
         }
+    }
+
+    deleteHandler() {
+        axios.delete(`https://jsonplaceholder.typicode.com/posts/${this.props.postId}`).then((res) => {
+            console.log(res);
+        });   
     }
 
     render () {
@@ -34,7 +43,7 @@ class FullPost extends Component {
                     <h1>{this.state.loadedPost.title}</h1>
                     <p>{this.state.loadedPost.body}</p>
                     <div className="Edit">
-                        <button className="Delete">Delete</button>
+                        <button className="Delete" onClick={this.deleteHandler}>Delete</button>
                     </div>
                 </div>
     
