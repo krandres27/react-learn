@@ -5,11 +5,6 @@ import Classes from './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient'
 
 const Burger = (props) => {
-    // let numberOfIngredientsAdded = Object.keys(props.ingredients).reduce( (prev, ingredient) => {
-    //     return prev + props.ingredients[ingredient];
-    // }, 0);
-    // console.log(numberOfIngredientsAdded)
-
     let selectedIngredients = Object.keys(props.ingredients)
     .map( (ingredient) => {
         return [...Array(props.ingredients[ingredient])].map( (_, i) => {
