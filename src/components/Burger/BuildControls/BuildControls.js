@@ -9,14 +9,14 @@ import Classes from './BuildControls.css';
 const controls = [
     { label: 'Salad', type: 'salad' },
     { label: 'Bacon', type: 'bacon' },
-    { label: 'Chesse', type: 'chesse' },
+    { label: 'Chesse', type: 'cheese' },
     { label: 'Meat', type: 'meat' },
 ]
 
 const BuildControls = (props) => {
     return(
         <div className={Classes.BuildControls}>
-            { controls.map(control => <BuildControl key={control.label} type={control.type} label={control.label}/>) }
+            { controls.map(control => <BuildControl key={control.label} label={control.label} add={() => props.addIngredient(control.type)} remove={(e) => props.removeIngredient(control.type)}/>) }
         </div>
     );
 }
