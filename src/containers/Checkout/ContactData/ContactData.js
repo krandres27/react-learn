@@ -71,8 +71,15 @@ class ContactData extends Component {
         e.preventDefault();
 
         this.setState({loading: true});
+        
+        const formData = {};
+
+        for( let formElementId in this.state.orderForm) {
+            formData[formElementId] = this.state.orderForm[formElementId].value;
+        }
 
         const order = {
+            orderData: formData,
             ingredients: this.props.ingredients,
             price: this.props.price,
         }
@@ -114,7 +121,7 @@ class ContactData extends Component {
                 { !this.state.loading ? 
                     <>
                         <h4>Enter your data</h4>
-                        <form>
+                        <form onSubmit={this.orderHandler}>
                             { formElementsArray.map( formElement => {
                                 return <Input 
                                     key={formElement.id} 
