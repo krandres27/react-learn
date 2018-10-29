@@ -1,50 +1,30 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { Route } from 'react-router-dom';
 
-import Post from '../../components/Post/Post';
-import FullPost from '../../components/FullPost/FullPost';
-import NewPost from '../../components/NewPost/NewPost';
+//components
+import Posts from '../Blog/Posts/Posts';
+
+//css
 import './Blog.css';
 
 class Blog extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            posts : [],
-            selectedPost: null
-        }
-
-        this.handleSelectedPost = this.handleSelectedPost.bind(this);
-    }
-
-    componentDidMount() {
-        axios.get('/posts').then((res) => {
-            const fetchedPosts = res.data.slice(0,4);
-            this.setState({posts: fetchedPosts});
-        });
-    }
-
-    handleSelectedPost(id) {
-        this.setState({selectedPost: id});
-    }
-
     render () {
-        const posts = this.state.posts.map( post => {
-            return <Post key={post.id} title={post.title} clicked={ () => this.handleSelectedPost(post.id) }/>
-        });
-
         return (
-            <div>
-                <section className="Posts">
-                    {posts}
-                </section>
-                <section>
-                    <FullPost postId={this.state.selectedPost}/>
-                </section>
-                <section>
-                    <NewPost />
-                </section>
+            <div className="Blog">
+                <header>
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="/">link1</a>
+                            </li>
+                            <li>
+                                <a href="/">link2</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <Route path="/" exact component={Posts} />
+                <Route path="/" render={() => <h1>not exact / will be rendered on every page that match the path that it has</h1>} />
             </div>
         );
     }

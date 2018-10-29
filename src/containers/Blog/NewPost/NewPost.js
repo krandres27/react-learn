@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // HERE INSTEAND OF IMPOR THE DEFAULT AXIOS, THE INSTANCE WILL BE IMPORTED
 //import axios from 'axios';
-import axiosInstance from '../../AxiosInstance';
+import axiosInstance from '../../../AxiosInstance';
 
 
 import './NewPost.css';
