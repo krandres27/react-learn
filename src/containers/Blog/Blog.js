@@ -4,14 +4,14 @@ import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 //components
 import Posts from '../Blog/Posts/Posts';
 import NewPost from '../Blog/NewPost/NewPost';
-// import FullPost from '../Blog/FullPost/FullPost';
+import NotFound from '../Blog/NotFound/NotFound';
 
 //css
 import './Blog.css';
 
 class Blog extends Component {
     state = {
-        auth: false
+        auth: true
     }
 
     render () {
@@ -46,11 +46,12 @@ class Blog extends Component {
                     */}
                     {/* TO pass custom props thes render approach could help. by spreading the Route props
                     and appending the custom ones */}
-                    <Route path="/new-post" render={ props =><NewPost {...props} auth={this.state.auth}/>}/>
-                    {/* <Route path="/new-post" component={NewPost} auth={this.state.auth}/> */}
-                    <Route path="/posts" component={Posts} /> {/* the exact was removed due to the nested route, we need to actually render the posts component*/}
+                    <Route path="/new-post" exact render={ props =><NewPost {...props} auth={this.state.auth}/>}/>
+                    {/* <Route path="/new-post" component={NewPost}/> */}
+                    <Route path="/posts" component={Posts}/> {/* the exact was removed due to the nested route, we need to actually render the posts component*/}
                     {/* <Route path="/:id" exact component={FullPost} /> */}
-                    <Redirect from="/" to="/posts"/>
+                    <Redirect from="/" exact to="/posts"/>
+                    <Route component={NotFound} />
                 </Switch>
             </div>
         );

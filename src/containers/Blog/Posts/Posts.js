@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Route } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 
 //components
 import Post from '../../../components/Post/Post';
@@ -23,8 +23,11 @@ class Posts extends Component {
     componentDidMount() {
         axios.get('/posts').then((res) => {
             const fetchedPosts = res.data.slice(0,4);
+            console.log('e')
             this.setState({posts: fetchedPosts});
         });
+
+        console.log(this.props)
     }
 
     handleSelectedPost(id) {
@@ -49,7 +52,10 @@ class Posts extends Component {
                 <section className="Posts">
                     {posts}
                 </section>
-                <Route path={`${this.props.match.url}/:id`} exact component={FullPost} />
+                <Switch>
+                    <Route path={`/posts/:id`} exact component={FullPost} />
+                    <Redirect from={'/posts/:id/:any'} to={'/not-found'} />
+                </Switch>
             </div>
         );
     }
