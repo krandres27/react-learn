@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
 //components
 import Posts from '../Blog/Posts/Posts';
+import NewPost from '../Blog/NewPost/NewPost';
 
 //css
 import './Blog.css';
@@ -15,16 +16,20 @@ class Blog extends Component {
                     <nav>
                         <ul>
                             <li>
-                                <a href="/">link1</a>
+                                <Link to="/">Post</Link>
                             </li>
                             <li>
-                                <a href="/">link2</a>
+                                <Link to={{
+                                    pathname: '/new-post',
+                                    hash: '#submit',
+                                    search: '?variable=true'
+                                }}>Post</Link>
                             </li>
                         </ul>
                     </nav>
                 </header>
                 <Route path="/" exact component={Posts} />
-                <Route path="/" render={() => <h1>not exact / will be rendered on every page that match the path that it has</h1>} />
+                <Route path="/new-post" component={NewPost} />
             </div>
         );
     }
