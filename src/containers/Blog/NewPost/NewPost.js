@@ -28,6 +28,10 @@ class NewPost extends Component {
 
         axiosInstance.post('/posts/', post).then((res) => {
             console.log(res);
+            // TO REDIRECT -> REPLACING THE STACK SO THE BACK BUTTON WILL NOT WORK
+            this.props.history.replace('/posts');
+            // TO REDIRECT -> PUSHING TO THE STACK SO THE BACK BUTTON WILL WORK
+            //this.props.history.push('/posts');
         });
     }
 
