@@ -10,6 +10,10 @@ import NewPost from '../Blog/NewPost/NewPost';
 import './Blog.css';
 
 class Blog extends Component {
+    state = {
+        auth: false
+    }
+
     render () {
         return (
             <div className="Blog">
@@ -40,7 +44,10 @@ class Blog extends Component {
                     {/* only choose the first Route with a match and omit the others
                         so in this case /new-post would not reach the /:id path
                     */}
-                    <Route path="/new-post" component={NewPost} />
+                    {/* TO pass custom props thes render approach could help. by spreading the Route props
+                    and appending the custom ones */}
+                    <Route path="/new-post" render={ props =><NewPost {...props} auth={this.state.auth}/>}/>
+                    {/* <Route path="/new-post" component={NewPost} auth={this.state.auth}/> */}
                     <Route path="/posts" component={Posts} /> {/* the exact was removed due to the nested route, we need to actually render the posts component*/}
                     {/* <Route path="/:id" exact component={FullPost} /> */}
                     <Redirect from="/" to="/posts"/>

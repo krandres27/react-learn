@@ -19,6 +19,14 @@ class NewPost extends Component {
         this.postHandler = this.postHandler.bind(this);
     }
 
+    componentDidMount() {
+        // HERE WOULD BE POSSIBLE TO IMPLEMENT A KIND OF GUARD
+        // TO REDIRECT OR SIMPLY TO PRESENT A MESSAGE IN THIS COMPONENT  
+        if(!this.props.auth) {
+            this.props.history.replace('/posts');
+        }
+    }
+
     postHandler() {
         const post = {
             title: this.state.title,
