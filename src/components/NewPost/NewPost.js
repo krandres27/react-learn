@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// HERE INSTEAND OF IMPOR THE DEFAULT AXIOS, THE INSTANCE WILL BE IMPORTED
+//import axios from 'axios';
+import axiosInstance from '../../AxiosInstance';
+
 
 import './NewPost.css';
 
@@ -23,7 +26,7 @@ class NewPost extends Component {
             author: this.state.author
         };
 
-        axios.post('/posts/', post).then((res) => {
+        axiosInstance.post('/posts/', post).then((res) => {
             console.log(res);
         });
     }
