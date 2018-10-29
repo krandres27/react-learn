@@ -6,6 +6,7 @@ import Button from '../../../components/UI/Button/Button';
 
 //UI
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from '../../../components/UI/Forms/Input/Input';
 
 //css
 import Classes from './ContactData.css';
@@ -61,9 +62,9 @@ class ContactData extends Component {
                     <>
                         <h4>Enter your data</h4>
                         <form>
-                            <input className={Classes.Input} type="text" name="name" placeholder="Your name" />
-                            <input className={Classes.Input} type="email" name="email" placeholder="Your email" />
-                            <input className={Classes.Input} type="text" name="street" placeholder="Your street" />
+                            <Input inputtype="input" type="text" name="name" placeholder="Your name" />
+                            <Input inputtype="input" type="email" name="email" placeholder="Your email" />
+                            <Input inputtype="input" type="text" name="street" placeholder="Your street" />
                             <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
                         </form>
                     </> :
