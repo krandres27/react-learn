@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 //components
 import Post from '../../../components/Post/Post';
@@ -15,7 +16,7 @@ class Posts extends Component {
             posts : []
         }
 
-        this.handleSelectedPost = this.handleSelectedPost.bind(this);
+        // this.handleSelectedPost = this.handleSelectedPost.bind(this);
     }
 
     componentDidMount() {
@@ -25,13 +26,17 @@ class Posts extends Component {
         });
     }
 
-    handleSelectedPost(id) {
-        this.setState({selectedPost: id});
-    }
+    // handleSelectedPost(id) {
+    //     this.setState({selectedPost: id});
+    // }
 
     render() {
         const posts = this.state.posts.map( post => {
-            return <Post key={post.id} title={post.title} clicked={ () => this.handleSelectedPost(post.id) }/>
+            return (
+                <Link key={post.id} to={`/${post.id}`}>
+                    <Post title={post.title} />
+                </Link>
+            );
         });
 
         return (
