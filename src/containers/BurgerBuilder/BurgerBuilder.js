@@ -93,28 +93,39 @@ class BurgerBuilder extends Component {
     }
     
     purchaseContinueHandler() {
-        this.setState({ loading: true});
-
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Andrés González',
-                address: {
-                    street: 'calle falsa 123',
-                    country: 'Colombia'
-                }
-            },
-            deliveryMethod: 'fastest'
+        const queryParams = [];
+        for(let ingredient in this.state.ingredients) {
+            queryParams.push(`${encodeURIComponent(ingredient)}=${encodeURIComponent(this.state.ingredients[ingredient])}`);
         }
-        axiosInstance.post('/orders.json', order)
-            .then((res) => {
-                console.log(res);
-                this.setState({purchasing: false, loading: false});
-            }).catch((err) => {
-                this.setState({purchasing: false, loading: false});
-                console.log(err);
-            });
+
+        const queryString = queryParams.join('&');
+
+        this.props.history.push({
+            pathname: '/checkout',
+            search: `?${queryString}`
+        });
+        // this.setState({ loading: true});
+
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Andrés González',
+        //         address: {
+        //             street: 'calle falsa 123',
+        //             country: 'Colombia'
+        //         }
+        //     },
+        //     deliveryMethod: 'fastest'
+        // }
+        // axiosInstance.post('/orders.json', order)
+        //     .then((res) => {
+        //         console.log(res);
+        //         this.setState({purchasing: false, loading: false});
+        //     }).catch((err) => {
+        //         this.setState({purchasing: false, loading: false});
+        //         console.log(err);
+        //     });
 
     }
 
