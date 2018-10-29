@@ -16,17 +16,24 @@ const withErrorHandler = ( WrappedComponent, axios ) => {
         }
 
         componentWillMount() {
+            // MAYBE HERE I NEED TO CHECK IF THERE WAS ALREADY
+            // AN INTERCEPTOR, IN ORDER TO NOT CREATE MORE
             // clearing the error when sending a new request
-            axios.interceptors.request.use( req => {
+            this.reqInterceptor = axios.interceptors.request.use( req => {
                 this.setState({ error: null });
                 return req;
             });
 
             // intercepting the erros on response
-            axios.interceptors.response.use( res => res, error => {
+            this.resInterceptor = axios.interceptors.response.use( res => res, error => {
                 this.setState({ error: error });
             });
         }
+
+        componentWillUnmount() {
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
+        } 
 
         errorConfirmHandler() {
             this.setState({ error: null });
