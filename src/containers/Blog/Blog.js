@@ -16,7 +16,14 @@ class Blog extends Component {
                     <nav>
                         <ul>
                             <li>
-                                <NavLink to="/" activeClassName="active">Posts</NavLink>
+                                <NavLink 
+                                    to="/" 
+                                    activeClassName="my-active" 
+                                    activeStyle={{
+                                        color: '#FA923F',
+                                        textDecoration: 'underline'
+                                    }}
+                                    exact>Posts</NavLink>
                             </li>
                             <li>
                                 <NavLink to={{
