@@ -29,7 +29,9 @@ class ContactData extends Component {
     orderHandler(e) {
         e.preventDefault();
 
-         const order = {
+        this.setState({loading: true});
+
+        const order = {
             ingredients: this.props.ingredients,
             price: this.props.price,
             customer: {
@@ -55,15 +57,15 @@ class ContactData extends Component {
     render() {
         return(
             <div className={Classes.ContactData}>
-                { this.state.loading ? 
+                { !this.state.loading ? 
                     <>
-                    <h4>Enter your data</h4>
-                    <form>
-                        <input className={Classes.Input} type="text" name="name" placeholder="Your name" />
-                        <input className={Classes.Input} type="email" name="email" placeholder="Your email" />
-                        <input className={Classes.Input} type="text" name="street" placeholder="Your street" />
-                        <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
-                    </form>
+                        <h4>Enter your data</h4>
+                        <form>
+                            <input className={Classes.Input} type="text" name="name" placeholder="Your name" />
+                            <input className={Classes.Input} type="email" name="email" placeholder="Your email" />
+                            <input className={Classes.Input} type="text" name="street" placeholder="Your street" />
+                            <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
+                        </form>
                     </> :
                     <Spinner />
                 }
