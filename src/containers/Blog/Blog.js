@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
 //components
 import Posts from '../Blog/Posts/Posts';
@@ -18,7 +18,7 @@ class Blog extends Component {
                         <ul>
                             <li>
                                 <NavLink 
-                                    to="/" 
+                                    to="/posts" 
                                     activeClassName="my-active" 
                                     activeStyle={{
                                         color: '#FA923F',
@@ -41,8 +41,9 @@ class Blog extends Component {
                         so in this case /new-post would not reach the /:id path
                     */}
                     <Route path="/new-post" component={NewPost} />
-                    <Route path="/" component={Posts} /> {/* the exact was removed due to the nested route, we need to actually render the posts component*/}
+                    <Route path="/posts" component={Posts} /> {/* the exact was removed due to the nested route, we need to actually render the posts component*/}
                     {/* <Route path="/:id" exact component={FullPost} /> */}
+                    <Redirect from="/" to="/posts"/>
                 </Switch>
             </div>
         );
