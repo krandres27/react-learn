@@ -37,12 +37,17 @@ const reducer = (state = initialState, action) => {
             }
             break;
         case 'DELETE_RESULT':
+            // IMMUTABLE WAY -> CREATING A COPY OF THE ARRAY WITH THE FILTER METHOD
+            const newResults = state.results.filter( result => result.id !== action.elementId)
+
             return {
                 ...state,
-                results: state.results.slice()
+                // results: state.results.splice(id, 1) THIS IS NOT IMMUTABLE 
+                results: newResults
             }
             break;
         default:
+            console.log(state);
             break;
 
     }    
