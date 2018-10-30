@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Person from '../components/Person/Person';
 import AddPerson from '../components/AddPerson/AddPerson';
@@ -41,4 +42,19 @@ class Persons extends Component {
     }
 }
 
-export default Persons;
+// map state to props
+const mapStateToProps = state => {
+    return {
+        persons: state.persons
+    }
+}
+
+// map dispatch actions to props methods
+const mapDispatchProps = dispatch => {
+    return {
+        onPersonAdded: () => dispatch({ type: 'ADD_PERSON '}),
+        onPersonAdded: (personId) => dispatch({ type: 'DELETE_PERSON ', personId }),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchProps)(Persons);
