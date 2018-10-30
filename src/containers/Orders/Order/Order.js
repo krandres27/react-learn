@@ -26,7 +26,7 @@ const Order = (props) => {
                 <strong>Price: </strong><span>{props.price}</span>    
             </p>
             <p>
-                <strong>Customer: </strong><span>{props.customer.name}</span>    
+                <strong>Customer: </strong><span>{props.customer}</span>    
             </p>
         </div>
     )

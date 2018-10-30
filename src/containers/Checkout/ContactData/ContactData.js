@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import axiosInstance from '../../../axios-orders';
+import { connect } from 'react-redux';
+
+//constants
+import * as actionTypes from '../../../store/actions';
 
 //componentes
 import Button from '../../../components/UI/Button/Button';
@@ -104,12 +108,12 @@ class ContactData extends Component {
         const order = {
             orderData: formData,
             ingredients: this.props.ingredients,
-            price: this.props.price,
+            price: this.props.totalPrice,
         }
         axiosInstance.post('/orders.json', order)
             .then((res) => {
-                console.log(res);
                 this.setState({loading: false});
+                this.props.onsetDefaultIngredients();
                 this.props.history.push('/');
             }).catch((err) => {
                 this.setState({loading: false});
@@ -151,12 +155,8 @@ class ContactData extends Component {
 
         let isValidForm = true;
         for(let formElement in updatedForm) {
-            console.log(formElement + '' + updatedForm[formElement].valid)
             isValidForm = updatedForm[formElement].valid && isValidForm;
         }
-
-        console.log(isValidForm)
-
 
         this.setState({
             orderForm: updatedForm,
@@ -200,4 +200,17 @@ class ContactData extends Component {
     }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+    return {
+        ingredients: state.ingredients,
+        totalPrice: state.totalPrice
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onsetDefaultIngredients: () => dispatch({type: actionTypes.REMOVE_ALL_INGREDIENTS})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
