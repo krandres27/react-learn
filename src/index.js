@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
@@ -28,7 +29,7 @@ const logger = store => {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // THE STORE SHOULD BE CREATED BEFORE OR WHEN THE APPLICATION START
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)));
 
 // PROVIDER IS A HELPER COMPONENT WHICH ALLOWS TO INJECT THE STORE ON THE REACT COMPONENTS
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
