@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-
-// 
 import { connect } from 'react-redux';
+
+//constants
+import * as actionTypes from '../../store/actions';
 
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
@@ -67,12 +68,12 @@ const mapDispatchProps = dispatch => {
 // RETURNS AN OBJECT THAT HAVE SOME PROP NAMES WHICH WILL HOLD A REFERENCE TO 
 // A FUNCTION WHICH SHOULD EVENTUALLY GET EXECUTED TO DISPATCH AN ACTION
     return {
-        onIncremenCounter: () => dispatch({ type: 'INCREMENT' }),
-        onDecrementCounter: () => dispatch({ type: 'DECREMENT' }),
-        onIncremenCounterBy5: () => dispatch({ type: 'INCREMENT_5', value: 5 }),
-        onDecrementCounterBy5: () => dispatch({ type: 'DECREMENT_5', value: 5 }),
-        onStoreResult: () => dispatch({ type: 'STORE_RESULT' }),
-        onDeleteResult: (elementId) => dispatch({ type: 'DELETE_RESULT', elementId: elementId }),
+        onIncremenCounter: () => dispatch({ type: actionTypes.INCREMENT }),
+        onDecrementCounter: () => dispatch({ type: actionTypes.DECREMENT }),
+        onIncremenCounterBy5: () => dispatch({ type: actionTypes.INCREMENT_5, value: 5 }),
+        onDecrementCounterBy5: () => dispatch({ type: actionTypes.DECREMENT_5, value: 5 }),
+        onStoreResult: () => dispatch({ type: actionTypes.STORE_RESULT }),
+        onDeleteResult: (elementId) => dispatch({ type: actionTypes.DELETE_RESULT, elementId: elementId }),
     }
 }
 
