@@ -9,8 +9,8 @@ const reducer = (state = initialState, action) => {
     if(action.type === 'ADD_PERSON') {
         const newPerson = {
             id: Math.random(), // not really unique but good enough here!
-            name: 'Max',
-            age: Math.floor( Math.random() * 40 )
+            name: action.personData.name,
+            age: Math.floor( action.personData.age )
         }
 
         return {
