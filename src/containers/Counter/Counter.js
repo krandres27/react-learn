@@ -32,10 +32,10 @@ class Counter extends Component {
         return (
             <div>
                 <CounterOutput value={this.props.counter} />
-                <CounterControl label="Increment" clicked={() => this.counterChangedHandler( 'inc' )} />
-                <CounterControl label="Decrement" clicked={() => this.counterChangedHandler( 'dec' )}  />
-                <CounterControl label="Add 5" clicked={() => this.counterChangedHandler( 'add', 5 )}  />
-                <CounterControl label="Subtract 5" clicked={() => this.counterChangedHandler( 'sub', 5 )}  />
+                <CounterControl label="Increment" clicked={this.props.onIncremenCounter} />
+                <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}  />
+                <CounterControl label="Add 5" clicked={this.props.onIncremenCounterBy5}  />
+                <CounterControl label="Subtract 5" clicked={this.props.onDecrementCounterBy5}  />
             </div>
         );
     }
@@ -43,6 +43,8 @@ class Counter extends Component {
 
 // STORE INSTRUCTIONS HOW THE STATE MANAGE BY REDUX SHOULD BE MAPPED TO PROPS
 // THAT THE COMPONENT(CONTAINER) CAN USE 
+
+// GETS THE SLICE OF THE STATE THAT THE COMPONENT IS GOING TO USE
 const mapStatetoProps = state => {
     // RETURNS AN OBJECT - A MAP OF PROP NAMES AN SLICE OF THE STATE STORED
     return {
@@ -50,7 +52,20 @@ const mapStatetoProps = state => {
     };
 }
 
+// SETS WHICH KIND OF ACTIONS ARE GOING TO BE DISPATCHED FROM THIS COMPONENT
+const mapDispatchProps = dispatch => {
+// RETURNS AN OBJECT THAT HAVE SOME PROP NAMES WHICH WILL HOLD A REFERENCE TO 
+// A FUNCTION WHICH SHOULD EVENTUALLY GET EXECUTED TO DISPATCH AN ACTION
+    return {
+        onIncremenCounter: () => dispatch({ type: 'INCREMENT' }),
+        onDecrementCounter: () => dispatch({ type: 'DECREMENT' }),
+        onIncremenCounterBy5: () => dispatch({ type: 'INCREMENT_5', value: 5 }),
+        onDecrementCounterBy5: () => dispatch({ type: 'DECREMENT_5', value: 5 })
+    }
+}
+
 //CONNECT RETURNS A FUNCTION THAT RETURNS A HOC AND IT TAKES A COMPONENT AS INPUT
 // IN FEW WORDS CONNECT GIVES ACCESS TO THE COMPONENT (Counter) WITH ACCESS TO THE PROPS
-// DEFINED ON THE mapStatetoProps LIDE counter
-export default connect(mapStatetoProps)(Counter);
+// DEFINED ON THE mapStatetoProps LIKE counter AND ALSO PROPS METHODS THAT WILL FIRE 
+// A DISPATCH LIKE onIncremenCounter
+export default connect(mapStatetoProps, mapDispatchProps)(Counter);
