@@ -7,10 +7,10 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 // THE REDUCER THAT THE CREATE METHOD NEEDS
-import reducer from './store/reducer';
+import rootReducer from './store/reducer';
 
 // THE STORE SHOULD BE CREATED BEFORE OR WHEN THE APPLICATION START
-const store = createStore(reducer);
+const store = createStore(rootReducer);
 
 // PROVIDER IS A HELPER COMPONENT WHICH ALLOWS TO INJECT THE STORE ON THE REACT COMPONENTS
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));

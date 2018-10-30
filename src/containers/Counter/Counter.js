@@ -58,8 +58,8 @@ class Counter extends Component {
 const mapStatetoProps = state => {
     // RETURNS AN OBJECT - A MAP OF PROP NAMES AN SLICE OF THE STATE STORED
     return {
-        counter: state.counter,
-        storedResults: state.results
+        counter: state.ctr.counter,
+        storedResults: state.res.results
     };
 }
 
@@ -72,7 +72,7 @@ const mapDispatchProps = dispatch => {
         onDecrementCounter: () => dispatch({ type: actionTypes.DECREMENT }),
         onIncremenCounterBy5: () => dispatch({ type: actionTypes.INCREMENT_5, value: 5 }),
         onDecrementCounterBy5: () => dispatch({ type: actionTypes.DECREMENT_5, value: 5 }),
-        onStoreResult: () => dispatch({ type: actionTypes.STORE_RESULT }),
+        onStoreResult: (result) => dispatch({ type: actionTypes.STORE_RESULT, result: result }),
         onDeleteResult: (elementId) => dispatch({ type: actionTypes.DELETE_RESULT, elementId: elementId }),
     }
 }
