@@ -3,7 +3,7 @@ import axiosInstance from '../../../axios-orders';
 import { connect } from 'react-redux';
 
 //constants
-import * as actionTypes from '../../../store/actions';
+import * as contactDataActions from '../../../store/actions/';
 
 //componentes
 import Button from '../../../components/UI/Button/Button';
@@ -209,7 +209,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onsetDefaultIngredients: () => dispatch({type: actionTypes.REMOVE_ALL_INGREDIENTS})
+        onsetDefaultIngredients: () => dispatch(contactDataActions.removeAllIngredients())
     }
 }
 

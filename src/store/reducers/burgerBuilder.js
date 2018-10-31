@@ -1,19 +1,15 @@
-import * as actionTypes from './actions';
-import INGREDIENT_PRICES from '../const/const';
+import * as actionTypes from '../actions/actionsTypes';
+import INGREDIENT_PRICES from '../../const/const';
 
 // initial state
 const initialState = {
-    ingredients: {
-        salad: 0,
-        bacon: 0,
-        cheese: 0,
-        meat: 0
-    },
-    totalPrice: 4
+    ingredients: {},
+    totalPrice: 4,
+    error: false
 }
 
 //reducer
-const reducer = (state = initialState, action) => {
+const burgerBuilderReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_INGREDIENT:
                 return {
@@ -32,23 +28,20 @@ const reducer = (state = initialState, action) => {
                         ...state.ingredients,
                         [action.ingredientName]: state.ingredients[action.ingredientName] - 1
                     },
-                    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+                    totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
                 }
             break;
-        case actionTypes.REMOVE_ALL_INGREDIENTS:
-                const defaultIngredients = {
-                    salad: 0,
-                    bacon: 0,
-                    cheese: 0,
-                    meat: 0
-                }
+        case actionTypes.SET_INGREDIENTS:
                 return {
                     ...state,
-                    ingredients: {
-                        ...state.ingredients,
-                        ...defaultIngredients
-                    },
-                    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+                    ingredients: action.ingredients,
+                    error: false
+                }
+            break;
+        case actionTypes.FETCH_INGREDIENTS_FAIL:
+                return {
+                    ...state,
+                    error: true
                 }
             break;
     
@@ -58,4 +51,4 @@ const reducer = (state = initialState, action) => {
     return state;
 }
 
-export default reducer;
+export default burgerBuilderReducer;

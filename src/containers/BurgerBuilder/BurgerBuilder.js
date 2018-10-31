@@ -3,7 +3,7 @@ import axiosInstance from '../../axios-orders';
 import { connect } from 'react-redux';
 
 //constants
-import * as actionTypes from '../../store/actions';
+import * as burgerBuilderActions from '../../store/actions/';
 
 //components
 import Burger from '../../components/Burger/Burger';
@@ -22,8 +22,7 @@ class BurgerBuilder extends Component {
         super(props);
 
         this.state = {
-            purchasing: false,
-            loading: false
+            purchasing: false
         }
 
         //bindings
@@ -33,15 +32,7 @@ class BurgerBuilder extends Component {
     };
 
     componentDidMount() {
-        // COMMENT THIS FOR LEARNING THE SYNC WAY ON THE REDUCER
-        // axiosInstance.get('/ingredients.json')
-        //     .then((res) => {
-        //         this.setState({ ingredients: res.data});
-        //     }).catch((err) => {
-        //         // HERE WILL BE POSSIBLE TO MANAGE AN STATE PROPERTY
-        //         // AND HANDLE IT IN THIS COMPONENT -> NICE TO HAVE
-        //         console.log(err);
-        //     });
+        this.props.onInitiIngredients();
     }
 
     updatePurchaseState(ingredients) {
@@ -77,15 +68,11 @@ class BurgerBuilder extends Component {
             burgerBuilderContent = (
                 <>
                     <Modal show={this.state.purchasing} modalClose={this.purchaseCancelHandler}>
-                        { !this.state.loading ?
-                            <OrderSummary 
-                                ingredients={this.props.ingredients} 
-                                price={this.props.totalPrice}
-                                purchaseCancel={this.purchaseCancelHandler}
-                                purchaseContinue={this.purchaseContinueHandler}/> :
-
-                            <Spinner />
-                        }
+                        <OrderSummary 
+                            ingredients={this.props.ingredients} 
+                            price={this.props.totalPrice}
+                            purchaseCancel={this.purchaseCancelHandler}
+                            purchaseContinue={this.purchaseContinueHandler}/> :
                     </Modal>
                     <Burger ingredients={this.props.ingredients}/>
                     <BuildControls 
@@ -106,14 +93,16 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
     return {
         ingredients: state.ingredients,
-        totalPrice: state.totalPrice
+        totalPrice: state.totalPrice,
+        error: state.error
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: (ingredientName) => dispatch({ type: actionTypes.ADD_INGREDIENT, ingredientName }),
-        onIngredientRemoved: (ingredientName) => dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingredientName }),
+        onIngredientAdded: (ingredientName) => dispatch(burgerBuilderActions.addIngredient(ingredientName)),
+        onIngredientRemoved: (ingredientName) => dispatch(burgerBuilderActions.removeIngredient(ingredientName)),
+        onInitiIngredients: () => dispatch(burgerBuilderActions.initIngredients())
     }
 }
 
