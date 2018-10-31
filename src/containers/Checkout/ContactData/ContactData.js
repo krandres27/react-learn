@@ -3,7 +3,7 @@ import axiosInstance from '../../../axios-orders';
 import { connect } from 'react-redux';
 
 //constants
-import * as contactDataActions from '../../../store/actions/';
+import * as actions from '../../../store/actions/';
 
 //componentes
 import Button from '../../../components/UI/Button/Button';
@@ -85,7 +85,7 @@ class ContactData extends Component {
                             { value: 'cheapest', displayValue: 'Cheapest'}
                         ]
                     },
-                    value: '',
+                    value: 'fastest',
                     valid: true
                 }
             },
@@ -183,7 +183,7 @@ class ContactData extends Component {
                                     touched={formElement.config.touched}
                                     {...formElement.config} />;
                             })}
-                            <Button btnType="Success" clicked={this.orderHandler} disabled={!this.state.validForm}>ORDER</Button>
+                            <Button btnType="Success" disabled={!this.state.validForm}>ORDER</Button>
                         </form>
                     </> :
                     <Spinner />
@@ -195,16 +195,15 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients,
-        totalPrice: state.totalPrice,
-        loading: state.loading
+        ingredients: state.burgerBuilder.ingredients,
+        totalPrice: state.burgerBuilder.totalPrice,
+        loading: state.order.loading
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        // onsetDefaultIngredients: () => dispatch(contactDataActions.removeAllIngredients()),
-        onOrderBuger: (order) => {dispatch(contactDataActions.purchaseBurger(order))}
+        onOrderBuger: (order) => {dispatch(actions.purchaseBurger(order))}
     }
 }
 

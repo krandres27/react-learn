@@ -10,6 +10,7 @@ export const removeAllIngredients = () => {
 };
 
 export const addIngredient = (ingredientName) => {
+    console.log('e')
     return {
         type: actionTypes.ADD_INGREDIENT,
         ingredientName

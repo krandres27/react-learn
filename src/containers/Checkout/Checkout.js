@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 //components
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
+
+import * as actions from '../../store/actions';
 
 //css
 import Classes from './Checkout.css';
@@ -15,6 +17,16 @@ class Checkout extends Component {
 
         this.onCheckoutCanceled = this.onCheckoutCanceled.bind(this);
         this.onCheckoutContinued = this.onCheckoutContinued.bind(this);
+    }
+
+    componentWillMount() {
+        this.props.onPurchaseInit();
+    }
+    
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.purchased) {
+            this.props.history.replace('/');
+        }
     }
 
     onCheckoutCanceled() {
@@ -43,9 +55,16 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients
+        ingredients: state.burgerBuilder.ingredients,
+        purchased: state.order.purchased
     }
 }
 
-export default connect(mapStateToProps)(Checkout);
+const mapDispatchToProps = dispatch => {
+    return {
+        onPurchaseInit: () => dispatch(actions.purchaseInit())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
 
