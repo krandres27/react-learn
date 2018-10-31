@@ -3,6 +3,12 @@ import axiosInstance from '../../axios-orders';
 
 // ACTION CREATORS
 
+export const removeAllIngredients = () => {
+    return {
+        type: actionTypes.REMOVE_ALL_INGREDIENTS
+    };
+};
+
 export const addIngredient = (ingredientName) => {
     return {
         type: actionTypes.ADD_INGREDIENT,

@@ -12,6 +12,9 @@ import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Forms/Input/Input';
 
+//HOC
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+
 //css
 import Classes from './ContactData.css';
 
@@ -86,8 +89,7 @@ class ContactData extends Component {
                     valid: true
                 }
             },
-            validForm: false,
-            loading: false
+            validForm: false
         }
 
         this.orderHandler = this.orderHandler.bind(this);
@@ -96,8 +98,6 @@ class ContactData extends Component {
 
     orderHandler(e) {
         e.preventDefault();
-
-        this.setState({loading: true});
         
         const formData = {};
 
@@ -110,15 +110,8 @@ class ContactData extends Component {
             ingredients: this.props.ingredients,
             price: this.props.totalPrice,
         }
-        axiosInstance.post('/orders.json', order)
-            .then((res) => {
-                this.setState({loading: false});
-                this.props.onsetDefaultIngredients();
-                this.props.history.push('/');
-            }).catch((err) => {
-                this.setState({loading: false});
-                console.log(err);
-            });
+        
+        this.props.onOrderBuger(order);
     }
 
     checkFormElementsValidity(value, rules) {
@@ -176,7 +169,7 @@ class ContactData extends Component {
 
         return(
             <div className={Classes.ContactData}>
-                { !this.state.loading ? 
+                { !this.props.loading ? 
                     <>
                         <h4>Enter your data</h4>
                         <form onSubmit={this.orderHandler}>
@@ -203,14 +196,16 @@ class ContactData extends Component {
 const mapStateToProps = state => {
     return {
         ingredients: state.ingredients,
-        totalPrice: state.totalPrice
+        totalPrice: state.totalPrice,
+        loading: state.loading
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onsetDefaultIngredients: () => dispatch(contactDataActions.removeAllIngredients())
+        // onsetDefaultIngredients: () => dispatch(contactDataActions.removeAllIngredients()),
+        onOrderBuger: (order) => {dispatch(contactDataActions.purchaseBurger(order))}
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axiosInstance));
