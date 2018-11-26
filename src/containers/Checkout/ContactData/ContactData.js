@@ -5,12 +5,10 @@ import { connect } from 'react-redux';
 //constants
 import * as actions from '../../../store/actions/';
 
-//componentes
-import Button from '../../../components/UI/Button/Button';
-
 //UI
-import Spinner from '../../../components/UI/Spinner/Spinner';
+import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Forms/Input/Input';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 
 //HOC
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
