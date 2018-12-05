@@ -26,8 +26,7 @@ class Auth extends Component {
                         required: true
                     },
                     valid: false,
-                    touched: false,
-                    signUpField: false
+                    touched: false
                 },
                 password: {
                     elementType: 'input',
@@ -41,22 +40,7 @@ class Auth extends Component {
                         minLength: 7
                     },
                     valid: false,
-                    touched: false,
-                    signUpField: false
-                },
-                name: {
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'text',
-                        placeholder: 'Your name'
-                    },
-                    value: '',
-                    validation: {
-                        required: true
-                    },
-                    valid: false,
-                    touched: false,
-                    signUpField: true
+                    touched: false
                 }
             },
             isSignIn: true
@@ -116,7 +100,7 @@ class Auth extends Component {
 
         const { loginForm: { email }, loginForm: { password } } = this.state;
 
-        this.props.onAuth(email.value, password.value)
+        this.props.onAuth(email.value, password.value, this.state.isSignIn)
     }
 
     render() {
@@ -156,7 +140,7 @@ class Auth extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password) => dispatch(actions.auth(email, password))
+        onAuth: (email, password, isSignIn) => dispatch(actions.auth(email, password, isSignIn))
     }
 }
 
